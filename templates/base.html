@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h1 class="text-2xl font-bold text-center mb-6 text-gray-800">To-Do App</h1>
+
+        <form action="/add" method="post" class="mb-4">
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Todo Title</label>
+                <input type="text" name="title" placeholder="Enter Todo..."
+                    class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+            </div>
+            <button type="submit"
+                class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200">Add</button>
+        </form>
+
+        <hr class="mb-6">
+
+        <div class="space-y-4">
+            {% for todo in todo_list %}
+            <div class="p-4 bg-gray-50 rounded-md shadow-sm flex items-center justify-between">
+                <div>
+                    <p class="text-gray-800 font-medium">{{ todo.id }} | {{ todo.title }}</p>
+
+                    {% if todo.complete == False %}
+                    <span class="text-yellow-500 font-semibold">Not Complete</span>
+                    {% else %}
+                    <span class="text-green-500 font-semibold">Completed</span>
+                    {% endif %}
+                </div>
+                <div class="space-x-2">
+                    <a href="/update/{{ todo.id }}"
+                        class="text-blue-500 hover:text-blue-700 transition duration-200">Update</a>
+                    <a href="/delete/{{ todo.id }}"
+                        class="text-red-500 hover:text-red-700 transition duration-200">Delete</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>
